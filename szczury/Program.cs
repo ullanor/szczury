@@ -18,7 +18,7 @@ namespace szczury
                 Console.WriteLine("5 - Count number of sentences in file");
                 Console.WriteLine("6 - Generate report of used letters(A-Z)");
                 Console.WriteLine("7 - Save statistics from options(2-5) as statystyki.txt");
-                Console.WriteLine("8 - EXIT");
+                Console.WriteLine("8 - EXIT App");
 
                 try
                 {

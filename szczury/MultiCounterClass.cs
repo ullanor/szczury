@@ -22,13 +22,11 @@ namespace szczury
         {
             //if (!checkIfFileExists())
             //    return;
-            string test = "abbcc daba grabaz!! 123? A6783!";
+            string test = "abbcc daba grabaz!! 123? A!";
             int lettersCount = test.Count(char.IsLetter);
             Console.WriteLine("There are {0} letters in the file\n", lettersCount);
         }
 
         //locate your static methods here to make app looks cleaner ;)
-
-        //TODO
     }
 }

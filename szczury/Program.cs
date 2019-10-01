@@ -35,6 +35,9 @@ namespace szczury
 
                 switch (number)
                 {
+                    case 1:
+                        MultiCounterClass.DownloadFileFromWeb();
+                        break;
                     case 2:
                         MultiCounterClass.CountLetters();
                         break;

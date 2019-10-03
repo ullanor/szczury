@@ -9,22 +9,26 @@ namespace szczury
 {
     static class MultiCounterClass
     {
-        static bool checkIfFileExists()
-        {
-            string path = "path to downloaded file";
-            if (!File.Exists(path))
-            {
-                Console.WriteLine("Error - cannot find the file!\n");
-                return false;
-            }
-            return true;
-        }
+        //static bool checkIfFileExists()
+        //{
+        //    string path = "path to downloaded file";
+        //    if (!File.Exists(path))
+        //    {
+        //        Console.WriteLine("Error - cannot find the file!\n");
+        //        return false;
+        //    }
+        //    return true;
+        //}
         public static void CountLetters()
         {
-            //if (!checkIfFileExists())
-            //    return;
-            string test = "abbcc daba grabaz!! 123? A6783!";
-            int lettersCount = test.Count(char.IsLetter);
+            string fileString = ReadFileToString();
+            if (fileString == string.Empty)
+            {
+                Console.WriteLine("\nYou must first download the file!!!\n");
+                return;
+            }
+
+            int lettersCount = fileString.Count(char.IsLetter);
             Console.WriteLine("There are {0} letters in the file\n", lettersCount);
         }
 
@@ -47,22 +51,17 @@ namespace szczury
 
         public static void CountWordsInText()
         {
-
-
             string fileString = ReadFileToString();
             if (fileString == string.Empty)
             {
-                Console.WriteLine("\nYou must first load the file!!!\n");
+                Console.WriteLine("\nYou must first download the file!!!\n");
                 return;
             }
 
             string[] source = fileString.Split(new char[] { '.', '?', '!', ' ', ';', ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
             var matchQuery = from word in source select word;
             int wordCount = matchQuery.Count();
-            Console.WriteLine("\nThe number of words in the file is {0}\n", wordCount);
-
-
-
+            Console.WriteLine("The number of words in the file is {0}\n", wordCount);
 
         }
 

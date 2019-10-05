@@ -9,32 +9,31 @@ namespace szczury
 {
     static class MultiCounterClass
     {
-        //static bool checkIfFileExists()
-        //{
-        //    string path = "path to downloaded file";
-        //    if (!File.Exists(path))
-        //    {
-        //        Console.WriteLine("Error - cannot find the file!\n");
-        //        return false;
-        //    }
-        //    return true;
-        //}
         public static void CountLetters()
         {
             string fileString = ReadFileToString();
             if (fileString == string.Empty)
-            {
-                Console.WriteLine("\nYou must first download the file!!!\n");
                 return;
-            }
 
             int lettersCount = fileString.Count(char.IsLetter);
             Console.WriteLine("There are {0} letters in the file\n", lettersCount);
         }
 
         //locate your static methods here to make app looks cleaner ;)
-
         //TODO
+
+        public static void CountOfEveryLetter()
+        {
+            string fileString = ReadFileToString();
+            if (fileString == string.Empty)
+                return;
+
+
+            var charLookup = fileString.ToUpper().Where(char.IsLetter).ToLookup(letter => letter);
+            foreach (var letter in charLookup)
+                Console.WriteLine("{0}: {1}", letter.Key, charLookup[letter.Key].Count());
+            Console.WriteLine();
+        }
 
         public static void DownloadFileFromWeb()
         {
@@ -53,10 +52,7 @@ namespace szczury
         {
             string fileString = ReadFileToString();
             if (fileString == string.Empty)
-            {
-                Console.WriteLine("\nYou must first download the file!!!\n");
                 return;
-            }
 
             string[] source = fileString.Split(new char[] { '.', '?', '!', ' ', ';', ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
             var matchQuery = from word in source select word;
@@ -69,7 +65,10 @@ namespace szczury
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt";
             if (!File.Exists(path))
+            {
+                Console.WriteLine("ERROR! You must first download the file!!!\n");
                 return string.Empty;
+            }           
             string fileString = File.ReadAllText(path);
             return fileString;
         }

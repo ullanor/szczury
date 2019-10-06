@@ -19,6 +19,7 @@ namespace szczury
                 Console.WriteLine("6 - Generate report of used letters(A-Z)");
                 Console.WriteLine("7 - Save statistics from options(2-5) as statystyki.txt");
                 Console.WriteLine("8 - EXIT App");
+                Console.Write("\nInput number: ");
 
                 try
                 {
@@ -35,10 +36,18 @@ namespace szczury
 
                 switch (number)
                 {
-                    case 2:
-                        MultiCounterClass.CountLetters();
+                    case 1:
+                        MultiCounterClass.DownloadFileFromWeb();
                         break;
-
+                    case 2:
+                        Console.Write(MultiCounterClass.CountLetters());
+                        break;
+                    case 3:
+                        Console.Write(MultiCounterClass.CountWordsInText());
+                        break;
+                    case 6:
+                        MultiCounterClass.CountOfEveryLetter();
+                        break;
                     case 8:
                         Console.WriteLine("Closing App ...\n");
                         isWorking = false;

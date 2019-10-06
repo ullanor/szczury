@@ -3,32 +3,75 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Net;
 
 namespace szczury
 {
     static class MultiCounterClass
     {
-        static bool checkIfFileExists()
+        static string textIndendation = "\n\n";
+        public static void DownloadFileFromWeb()
         {
-            string path = "path to downloaded file";
-            if (!File.Exists(path))
-            {
-                Console.WriteLine("Error - cannot find the file!\n");
-                return false;
-            }
-            return true;
-        }
-        public static void CountLetters()
-        {
-            //if (!checkIfFileExists())
-            //    return;
-            string test = "abbcc daba grabaz!! 123? A6783!";
-            int lettersCount = test.Count(char.IsLetter);
-            Console.WriteLine("There are {0} letters in the file\n", lettersCount);
+            Console.WriteLine("Download request processing!\n");
+            string remoteUri = "https://s3.zylowski.net/public/input/2.txt";
+
+            WebClient myWebClient = new WebClient();
+            Console.WriteLine("Downloading File \"{0}\" from \"{1}\" .......\n", "2.txt",
+                remoteUri.Substring(0, remoteUri.Length - 5));
+
+            myWebClient.DownloadFile(remoteUri, Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt");
+            Console.WriteLine("Successfully Downloaded File \"{0}\"\n", remoteUri);
         }
 
         //locate your static methods here to make app looks cleaner ;)
-
         //TODO
+
+        public static string CountWordsInText()
+        {
+            string fileString = ReadFileToString();
+            if (fileString == string.Empty)
+                return fileString;
+
+            string[] source = fileString.Split(new char[] { '.', '?', '!', ' ', ';', ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var matchQuery = from word in source select word;
+            int wordCount = matchQuery.Count();
+            return "The number of words in the file is " + wordCount + textIndendation;
+
+        }
+
+        public static string CountLetters()
+        {
+            string fileString = ReadFileToString();
+            if (fileString == string.Empty)
+                return fileString;
+
+            int lettersCount = fileString.Count(char.IsLetter);
+            return "There are " + lettersCount + " letters in the file" + textIndendation;
+        }
+
+        public static void CountOfEveryLetter()
+        {
+            string fileString = ReadFileToString();
+            if (fileString == string.Empty)
+                return;
+
+
+            var charLookup = fileString.ToUpper().Where(char.IsLetter).ToLookup(letter => letter);
+            foreach (var letter in charLookup)
+                Console.WriteLine("{0}: {1}", letter.Key, charLookup[letter.Key].Count());
+            Console.WriteLine();
+        }
+
+        public static string ReadFileToString()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt";
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("ERROR! You must first download the file!!!\n");
+                return string.Empty;
+            }           
+            string fileString = File.ReadAllText(path);
+            return fileString;
+        }
     }
 }

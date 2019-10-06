@@ -46,7 +46,7 @@ namespace szczury
                         Console.Write(MultiCounterClass.CountWordsInText());
                         break;
                     case 4:
-                        Console.Write(MultiCounterClass.CountPunctuationMarks());
+                        Console.Write(MultiCounterClass.CountPunctuationMarksInText());
                         break;
                     case 6:
                         MultiCounterClass.CountOfEveryLetter();

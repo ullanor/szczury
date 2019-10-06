@@ -62,7 +62,7 @@ namespace szczury
             Console.WriteLine();
         }
 
-        public static string CountPunctuationMarks()
+        public static string CountPunctuationMarksInText()
         {
             string tester = ReadFileToString();
             char[] punctuationMarks = { '!', '?', '.', ':', ';', ',', '-', '[', ']', '{', '}', '(', ')', '\'', '\"' };

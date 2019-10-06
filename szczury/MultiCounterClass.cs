@@ -67,7 +67,7 @@ namespace szczury
             string tester = ReadFileToString();
             char[] punctuationMarks = { '!', '?', '.', ':', ';', ',', '-', '[', ']', '{', '}', '(', ')', '\'', '\"' };
             int result = tester.ToCharArray().Count(c => (punctuationMarks.Contains(c)));
-            return "Number of punctuation marks: " + result;
+            return "Number of punctuation marks: \n" + result;
         }
 
         public static string ReadFileToString()

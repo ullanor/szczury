@@ -9,18 +9,45 @@ namespace szczury
 {
     static class MultiCounterClass
     {
-        public static void CountLetters()
+        static string textIndendation = "\n\n";
+        public static void DownloadFileFromWeb()
         {
-            string fileString = ReadFileToString();
-            if (fileString == string.Empty)
-                return;
+            Console.WriteLine("Download request processing!\n");
+            string remoteUri = "https://s3.zylowski.net/public/input/2.txt";
 
-            int lettersCount = fileString.Count(char.IsLetter);
-            Console.WriteLine("There are {0} letters in the file\n", lettersCount);
+            WebClient myWebClient = new WebClient();
+            Console.WriteLine("Downloading File \"{0}\" from \"{1}\" .......\n", "2.txt",
+                remoteUri.Substring(0, remoteUri.Length - 5));
+
+            myWebClient.DownloadFile(remoteUri, Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt");
+            Console.WriteLine("Successfully Downloaded File \"{0}\"\n", remoteUri);
         }
 
         //locate your static methods here to make app looks cleaner ;)
         //TODO
+
+        public static string CountWordsInText()
+        {
+            string fileString = ReadFileToString();
+            if (fileString == string.Empty)
+                return fileString;
+
+            string[] source = fileString.Split(new char[] { '.', '?', '!', ' ', ';', ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var matchQuery = from word in source select word;
+            int wordCount = matchQuery.Count();
+            return "The number of words in the file is " + wordCount + textIndendation;
+
+        }
+
+        public static string CountLetters()
+        {
+            string fileString = ReadFileToString();
+            if (fileString == string.Empty)
+                return fileString;
+
+            int lettersCount = fileString.Count(char.IsLetter);
+            return "There are " + lettersCount + " letters in the file" + textIndendation;
+        }
 
         public static void CountOfEveryLetter()
         {
@@ -33,32 +60,6 @@ namespace szczury
             foreach (var letter in charLookup)
                 Console.WriteLine("{0}: {1}", letter.Key, charLookup[letter.Key].Count());
             Console.WriteLine();
-        }
-
-        public static void DownloadFileFromWeb()
-        {
-            Console.WriteLine("Download request processing!\n");
-            string remoteUri = "https://s3.zylowski.net/public/input/2.txt";
-
-            WebClient myWebClient = new WebClient();
-            Console.WriteLine("Downloading File \"{0}\" from \"{1}\" .......\n\n", "2.txt",
-                remoteUri.Substring(0, remoteUri.Length - 5));
-
-            myWebClient.DownloadFile(remoteUri, Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt");
-            Console.WriteLine("Successfully Downloaded File \"{0}\"\n", remoteUri);
-        }
-
-        public static void CountWordsInText()
-        {
-            string fileString = ReadFileToString();
-            if (fileString == string.Empty)
-                return;
-
-            string[] source = fileString.Split(new char[] { '.', '?', '!', ' ', ';', ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
-            var matchQuery = from word in source select word;
-            int wordCount = matchQuery.Count();
-            Console.WriteLine("The number of words in the file is {0}\n", wordCount);
-
         }
 
         public static string ReadFileToString()

@@ -62,6 +62,14 @@ namespace szczury
             Console.WriteLine();
         }
 
+        public static string CountPunctuationMarks()
+        {
+            string tester = ReadFileToString();
+            char[] punctuationMarks = { '!', '?', '.', ':', ';', ',', '-', '[', ']', '{', '}', '(', ')', '\'', '\"' };
+            int result = tester.ToCharArray().Count(c => (punctuationMarks.Contains(c)));
+            return "Number of punctuation marks: " + result;
+        }
+
         public static string ReadFileToString()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt";

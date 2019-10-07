@@ -54,6 +54,9 @@ namespace szczury
                     case 6:
                         MultiCounterClass.CountOfEveryLetter();
                         break;
+                    case 7:
+                        MultiCounterClass.SaveStatistics();
+                        break;
                     case 8:
                         Console.WriteLine("Closing App ...\n");
                         isWorking = false;

@@ -78,6 +78,19 @@ namespace szczury
             Console.WriteLine();
         }
 
+        public static void SaveStatistics()
+        {
+            string docPath =
+                  Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "statystyki.txt")))
+            {
+                outputFile.WriteLine(CountSentences());
+                outputFile.WriteLine(CountPunctuationMarks());
+            }
+            Console.WriteLine("statystyki.txt was created successfully!");
+        }
+
         public static string ReadFileToString()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt";

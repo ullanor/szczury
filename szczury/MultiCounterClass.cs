@@ -57,6 +57,14 @@ namespace szczury
             return "Number of punctuation marks: " + result;
         }
 
+        public static string CountSentences()
+        {
+            string tester = ReadFileToString();
+            string pattern = "(?<!(\\?|\\.|!))(\\?|\\.|!)";
+            int doubled = System.Text.RegularExpressions.Regex.Matches(tester, pattern).Count;
+            return "Number of sentences: " + doubled;
+        }
+
         public static void CountOfEveryLetter()
         {
             string fileString = ReadFileToString();

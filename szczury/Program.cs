@@ -48,8 +48,14 @@ namespace szczury
                     case 4:
                         Console.Write(MultiCounterClass.CountPunctuationMarks());
                         break;
+                    case 5:
+                        Console.Write(MultiCounterClass.CountSentences());
+                        break;
                     case 6:
                         MultiCounterClass.CountOfEveryLetter();
+                        break;
+                    case 7:
+                        MultiCounterClass.SaveStatFile();
                         break;
                     case 8:
                         Console.WriteLine("Closing App ...\n");

@@ -49,6 +49,14 @@ namespace szczury
             return "There are " + lettersCount + " letters in the file" + textIndendation;
         }
 
+        public static string CountPunctuationMarks()
+        {
+            string tester = ReadFileToString();
+            char[] punctuationMarks = { '!', '?', '.', ':', ';', ',', '-', '[', ']', '{', '}', '(', ')', '\'', '\"' };
+            int result = tester.ToCharArray().Count(c => (punctuationMarks.Contains(c)));
+            return "Number of punctuation marks: " + result;
+        }
+
         public static void CountOfEveryLetter()
         {
             string fileString = ReadFileToString();

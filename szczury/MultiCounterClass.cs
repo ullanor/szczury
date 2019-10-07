@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace szczury
 {
@@ -39,16 +40,6 @@ namespace szczury
 
         }
 
-        public static string CountLetters()
-        {
-            string fileString = ReadFileToString();
-            if (fileString == string.Empty)
-                return fileString;
-
-            int lettersCount = fileString.Count(char.IsLetter);
-            return "There are " + lettersCount + " letters in the file" + textIndendation;
-        }
-
         public static void CountOfEveryLetter()
         {
             string fileString = ReadFileToString();
@@ -60,6 +51,57 @@ namespace szczury
             foreach (var letter in charLookup)
                 Console.WriteLine("{0}: {1}", letter.Key, charLookup[letter.Key].Count());
             Console.WriteLine();
+        }
+
+
+        public static string CountLetters()
+        {
+            string fileString = ReadFileToString();
+            if (fileString == string.Empty)
+                return fileString;
+
+            int lettersCount = fileString.Count(char.IsLetter);
+            return "There are " + lettersCount + " letters in the file" + textIndendation;
+        }
+
+        public static string CountPunctuationMarks()
+        {
+            string tester = ReadFileToString();
+            if (tester == string.Empty)
+                return tester;
+            char[] punctuationMarks = { '!', '?', '.', ':', ';', ',', '-', '[', ']', '{', '}', '(', ')', '\'', '\"' };
+            int result = tester.ToCharArray().Count(c => (punctuationMarks.Contains(c)));
+            return "Number of punctuation marks: " + result + textIndendation;
+
+        }
+
+        public static string CountSentences()
+        {
+            string tester = ReadFileToString();
+            if (tester == string.Empty)
+                return tester;
+
+            string pattern = "(?<!(\\?|\\.|!))(\\?|\\.|!)";
+            int doubled = Regex.Matches(tester, pattern).Count;
+            return "Number of sentences: " + doubled + textIndendation;
+        }
+
+        public static void SaveStatFile()
+        {
+            string SuperTester = ReadFileToString();
+            if (SuperTester == string.Empty)
+                return;
+
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "statystyki.txt")))
+            {
+                outputFile.WriteLine(CountLetters());
+                outputFile.WriteLine(CountWordsInText());
+                outputFile.WriteLine(CountPunctuationMarks());
+                outputFile.WriteLine(CountSentences());
+            }           
+            Console.WriteLine("statystyki.txt was created successfully!\n");
         }
 
         public static string ReadFileToString()

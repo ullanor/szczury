@@ -115,5 +115,23 @@ namespace szczury
             string fileString = File.ReadAllText(path);
             return fileString;
         }
+
+        public static void RemoveDownloadedFile()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt";
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                Console.WriteLine("webText.txt was deleted!\n");
+
+        }
+            string path2 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//statystyki.txt";
+            if (File.Exists(path2))
+            {
+                File.Delete(path2);
+                Console.WriteLine("statystyki.txt was deleted!\n");
+            }
+
+        }
     }
 }

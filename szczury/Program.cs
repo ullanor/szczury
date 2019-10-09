@@ -59,6 +59,7 @@ namespace szczury
                         break;
                     case 8:
                         Console.WriteLine("Closing App ...\n");
+                        MultiCounterClass.RemoveDownloadedFile();
                         isWorking = false;
                         break;
 

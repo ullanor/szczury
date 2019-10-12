@@ -34,9 +34,15 @@ namespace szczury
                 return fileString;
 
             string[] source = fileString.Split(new char[] { '.', '?', '!', ' ', ';', ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
-            var matchQuery = from word in source select word;
-            int wordCount = matchQuery.Count();
-            return "The number of words in the file is " + wordCount + textIndendation;
+            int counter = 0;
+            foreach (string word in source)
+            {
+                if (word.Length > 1)
+                    counter++;
+                //var matchQuery = from word in source select word;
+                //int wordCount = matchQuery.Count();
+            }
+            return "The number of words in the file is " + counter + textIndendation;
 
         }
 
@@ -61,7 +67,24 @@ namespace szczury
                 return fileString;
 
             int lettersCount = fileString.Count(char.IsLetter);
-            return "There are " + lettersCount + " letters in the file" + textIndendation;
+            char[] vowels = { 'A', 'E', 'I', 'O', 'U', 'Y' };
+            //if (vowel.Contains(fileString.Count(char.IsLetter)))
+            char[] charsFromTekst = fileString.ToArray();
+
+            int counter = 0;
+            foreach(char charek in charsFromTekst)
+            {
+                if (vowels.Contains(char.ToUpper(charek)))
+                {
+                    counter++;
+                }
+            }
+
+            
+            int cons = lettersCount - counter;
+            string vowels2 = "Vowels: " + counter + " Cons: "+ cons;
+
+            return "There are " + lettersCount + " letters in the file \n" + vowels2+ textIndendation;
         }
 
         public static string CountPunctuationMarks()

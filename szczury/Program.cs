@@ -11,7 +11,7 @@ namespace szczury
 
             while (isWorking)
             {
-                Console.WriteLine("1 - Download file from net");
+                Console.WriteLine("1 - Choose entry file");
                 Console.WriteLine("2 - Count number of letters in file");
                 Console.WriteLine("3 - Count number of words in file");
                 Console.WriteLine("4 - Count number of punctuation marks in file");

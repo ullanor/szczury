@@ -13,15 +13,46 @@ namespace szczury
         static string textIndendation = "\n\n";
         public static void DownloadFileFromWeb()
         {
-            Console.WriteLine("Download request processing!\n");
-            string remoteUri = "https://s3.zylowski.net/public/input/2.txt";
+            string address = string.Empty;
+            string choosed = string.Empty;
+            Console.WriteLine("Do you want to download file from web?[Y/N]");
+            choosed = Console.ReadLine();
+
+            if (choosed.Length > 1) return;
+            if (char.ToUpper(Convert.ToChar(choosed)) == 'Y')
+            {
+                Console.Write("Input file address: ");
+                address = Console.ReadLine();
+            }
+            else
+            {
+                Console.Write("Input file name: ");
+                address += Environment.CurrentDirectory + "/";
+                address += Console.ReadLine();
+
+                try
+                {
+                    Console.WriteLine(File.ReadAllText(address));
+                }catch(Exception ext) { Console.WriteLine("ERROR no file!"); }
+                return;
+            }
+
+            //Console.WriteLine("Download request processing!\n");
+            //string remoteUri = "https://s3.zylowski.net/public/input/2.txt";
 
             WebClient myWebClient = new WebClient();
-            Console.WriteLine("Downloading File \"{0}\" from \"{1}\" .......\n", "2.txt",
-                remoteUri.Substring(0, remoteUri.Length - 5));
-
-            myWebClient.DownloadFile(remoteUri, Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt");
-            Console.WriteLine("Successfully Downloaded File \"{0}\"\n", remoteUri);
+            //Console.WriteLine("Downloading File \"{0}\" from \"{1}\" .......\n", "2.txt",
+            //remoteUri.Substring(0, remoteUri.Length - 5));
+            try
+            {
+                myWebClient.DownloadFile(address, Environment.CurrentDirectory + "//webText.txt");
+            }
+            catch (Exception ex) 
+            { 
+                Console.WriteLine("File NOT found!");
+                return;
+            }
+            Console.WriteLine("Successfully Downloaded File \"{0}\"\n", address);
         }
 
         //locate your static methods here to make app looks cleaner ;)
@@ -104,7 +135,7 @@ namespace szczury
             if (tester == string.Empty)
                 return tester;
 
-            string pattern = "(?<!(\\?|\\.|!))(\\?|\\.|!)";
+            string pattern = "(\\?|\\.)";
             int doubled = Regex.Matches(tester, pattern).Count;
             return "Number of sentences: " + doubled + textIndendation;
         }
@@ -129,7 +160,7 @@ namespace szczury
 
         public static string ReadFileToString()
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt";
+            string path = Environment.CurrentDirectory + "//webText.txt";
             if (!File.Exists(path))
             {
                 Console.WriteLine("ERROR! You must first download the file!!!\n");
@@ -141,14 +172,14 @@ namespace szczury
 
         public static void RemoveDownloadedFile()
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//webText.txt";
+            string path = Environment.CurrentDirectory + "//webText.txt";
             if (File.Exists(path))
             {
                 File.Delete(path);
                 Console.WriteLine("webText.txt was deleted!\n");
 
         }
-            string path2 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//statystyki.txt";
+            string path2 = Environment.CurrentDirectory + "//statystyki.txt";
             if (File.Exists(path2))
             {
                 File.Delete(path2);
